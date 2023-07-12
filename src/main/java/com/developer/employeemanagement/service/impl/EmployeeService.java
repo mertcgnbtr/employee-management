@@ -1,48 +1,51 @@
 package com.developer.employeemanagement.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.developer.employeemanagement.entity.EmployeeEntity;
+import com.developer.employeemanagement.entity.Employee;
 import com.developer.employeemanagement.repository.EmployeeRepository;
-import com.developer.employeemanagement.service.EmployeeService;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeService {
 	
 	private final EmployeeRepository employeeRepository;
 
-	public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+	public EmployeeService(EmployeeRepository employeeRepository) {
 		this.employeeRepository = employeeRepository;
 	}
 	
-	@Override
-	public List<EmployeeEntity> findAllEmployee() {
+	public List<Employee> findAll() {
 		// TODO Auto-generated method stub
 		return employeeRepository.findAll();
 	}
 
-	@Override
-	public Optional<EmployeeEntity> findById(Long id) {
+	public List<Employee> findByName(String name) {
+		return employeeRepository.findByName(name);
+	}
+
+	public List<Employee> getEmployeesByDateRange(Date startDate, Date endDate) {
+		return employeeRepository.findByDateOfBirthBetween(startDate, endDate);
+	}
+
+	public Optional<Employee> findById(Long id) {
 		// TODO Auto-generated method stub
 		return employeeRepository.findById(id);
 	}
 
-	@Override
-	public EmployeeEntity saveEmployee(EmployeeEntity employeeEntity) {
+	public Employee saveEmployee(Employee employee) {
 		// TODO Auto-generated method stub
-		return employeeRepository.save(employeeEntity);
+		return employeeRepository.save(employee);
 	}
 
-	@Override
-	public EmployeeEntity updateEmployee(EmployeeEntity employeeEntity) {
+	public Employee updateEmployee(Employee employee) {
 		// TODO Auto-generated method stub
-		return employeeRepository.save(employeeEntity);
+		return employeeRepository.save(employee);
 	}
 
-	@Override
 	public void deleteEmployee(Long id) {
 		// TODO Auto-generated method stub
 		employeeRepository.deleteById(id);

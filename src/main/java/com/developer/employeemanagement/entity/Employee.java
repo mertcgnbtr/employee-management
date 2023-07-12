@@ -2,17 +2,12 @@ package com.developer.employeemanagement.entity;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "mt_employee")
-public class EmployeeEntity {
+public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +16,9 @@ public class EmployeeEntity {
 	
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "gender")
-	private String gender;
+	private Gender gender;
 	
 	@Column(name = "date_of_birth")
 	private Date dateOfBirth;
@@ -31,11 +26,11 @@ public class EmployeeEntity {
 	@Column(name = "address")
 	private String address;
 
-	public EmployeeEntity() {
+	public Employee() {
 
 	}
 
-	public EmployeeEntity(Long id, String name, String gender, Date dateOfBirth, String address) {
+	public Employee(Long id, String name, Gender gender, Date dateOfBirth, String address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -60,11 +55,11 @@ public class EmployeeEntity {
 		this.name = name;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 

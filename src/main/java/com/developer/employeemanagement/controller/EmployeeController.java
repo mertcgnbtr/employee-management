@@ -1,19 +1,15 @@
 package com.developer.employeemanagement.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.developer.employeemanagement.service.impl.EmployeeService;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
-import com.developer.employeemanagement.entity.EmployeeEntity;
-import com.developer.employeemanagement.service.EmployeeService;
+import com.developer.employeemanagement.entity.Employee;
 
 @RestController
 @RequestMapping("/employee")
@@ -24,25 +20,39 @@ public class EmployeeController {
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
-	
+
+
 	@GetMapping
-	public List<EmployeeEntity> findAllEmployee(){
-		return employeeService.findAllEmployee();
+	public List<Employee> findAllEmployee(){
+		return employeeService.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<EmployeeEntity> findEmployeeById(@PathVariable("id") Long id) {
+	public Optional<Employee> findEmployeeById(@PathVariable("id") Long id) {
 		return employeeService.findById(id);
+	}
+
+	@GetMapping("/by-name")
+	public List<Employee> findByName(@RequestParam String name){
+		return employeeService.findByName(name);
+	}
+
+	@GetMapping("/date-range")
+	public List<Employee> getEmployeesByDateRange(
+			@RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+
+		return employeeService.getEmployeesByDateRange(startDate, endDate);
 	}
 	
 	@PostMapping
-	public EmployeeEntity saveEmployee(@RequestBody EmployeeEntity employeeEntity) {
-		return employeeService.saveEmployee(employeeEntity);
+	public Employee saveEmployee(@RequestBody Employee employee) {
+		return employeeService.saveEmployee(employee);
 	}
 	
 	@PutMapping
-	public EmployeeEntity updateEmployee(@RequestBody EmployeeEntity employeeEntity) {
-		return employeeService.updateEmployee(employeeEntity);
+	public Employee updateEmployee(@RequestBody Employee employee) {
+		return employeeService.updateEmployee(employee);
 	}
 	
 	@DeleteMapping("/{id}")
