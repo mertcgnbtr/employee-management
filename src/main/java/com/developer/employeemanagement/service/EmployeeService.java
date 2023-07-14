@@ -1,13 +1,12 @@
-package com.developer.employeemanagement.service.impl;
+package com.developer.employeemanagement.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
+import com.developer.employeemanagement.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import com.developer.employeemanagement.entity.Employee;
-import com.developer.employeemanagement.repository.EmployeeRepository;
 
 @Service
 public class EmployeeService {
@@ -31,24 +30,24 @@ public class EmployeeService {
 		return employeeRepository.findByDateOfBirthBetween(startDate, endDate);
 	}
 
-	public Optional<Employee> findById(Long id) {
+	public Employee findById(Long id) {
 		// TODO Auto-generated method stub
 		return employeeRepository.findById(id);
 	}
 
-	public Employee saveEmployee(Employee employee) {
+	public void save(Employee employee) {
 		// TODO Auto-generated method stub
-		return employeeRepository.save(employee);
+		employeeRepository.save(employee);
 	}
 
-	public Employee updateEmployee(Employee employee) {
+	public void update(Employee employee) {
 		// TODO Auto-generated method stub
-		return employeeRepository.save(employee);
+		employeeRepository.update(employee);
 	}
 
-	public void deleteEmployee(Long id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		employeeRepository.deleteById(id);
+		employeeRepository.delete(id);
 	}
 
 }
