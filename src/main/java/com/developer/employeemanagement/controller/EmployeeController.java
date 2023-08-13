@@ -2,7 +2,6 @@ package com.developer.employeemanagement.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import com.developer.employeemanagement.service.EmployeeService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,7 +28,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Employee> findEmployeeById(@PathVariable("id") Long id) {
+	public ResponseEntity<Employee> findEmployeeById(@PathVariable("id") String id) {
 		return ResponseEntity.ok(employeeService.findById(id));
 	}
 
@@ -62,6 +61,11 @@ public class EmployeeController {
 	public ResponseEntity delete(@PathVariable("id") Long id) {
 		employeeService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@GetMapping("/letters")
+	public ResponseEntity<List<Employee>> getEmployeesByLetters(@RequestParam("letters") String letters){
+		return ResponseEntity.ok(employeeService.getEmployeesByLetters(letters));
 	}
 
 }

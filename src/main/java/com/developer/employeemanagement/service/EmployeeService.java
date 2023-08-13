@@ -2,7 +2,9 @@ package com.developer.employeemanagement.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import com.developer.employeemanagement.entity.Gender;
 import com.developer.employeemanagement.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,7 @@ public class EmployeeService {
 		return employeeRepository.findByDateOfBirthBetween(startDate, endDate);
 	}
 
-	public Employee findById(Long id) {
+	public Employee findById(String id) {
 		// TODO Auto-generated method stub
 		return employeeRepository.findById(id);
 	}
@@ -48,6 +50,10 @@ public class EmployeeService {
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		employeeRepository.delete(id);
+	}
+
+	public List<Employee> getEmployeesByLetters(String letters) {
+		return employeeRepository.findByLetters(letters);
 	}
 
 }
